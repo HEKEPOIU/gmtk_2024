@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://mx0skoebm0u7"]
+
+[ext_resource type="Script" path="res://src/ui/card/card.gd" id="1_uuabx"]
+
+[node name="Card" type="Button"]
+custom_minimum_size = Vector2(100, 150)
+anchors_preset = -1
+anchor_left = 0.043
+anchor_top = 0.116
+anchor_right = 0.043
+anchor_bottom = 0.116
+offset_left = -49.536
+offset_top = -75.168
+offset_right = -49.536
+offset_bottom = -75.168
+text = " card text"
+script = ExtResource("1_uuabx")
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]
