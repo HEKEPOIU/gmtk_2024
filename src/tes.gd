@@ -2,7 +2,7 @@ extends Node2D
 
 class_name test
 
-@onready var canvas = get_node('Canvas') as ui_main
+@onready var canvas = get_node('Canvas') as UiMain
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

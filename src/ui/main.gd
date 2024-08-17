@@ -1,11 +1,11 @@
 extends Control
 
-class_name ui_main
+class_name UiMain
 
-static var card = preload('res://src/ui/card/card.tscn') as PackedScene
+var card := preload('res://src/ui/card/card.tscn')
 
-@onready var startUi = get_node('StartUi') as Node
-@onready var cardContainer = get_node('PanelContainer/HBoxContainer') as Node
+@onready var startUi := get_node('StartUi')
+@onready var cardContainer := get_node('PanelContainer/HBoxContainer')
 
 signal game_start()
 
@@ -25,7 +25,7 @@ func create_new_card_container() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 
 	pass
 
@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 func _refresh_card_state(list: PackedStringArray) -> void:
 	create_new_card_container() # todo: here can just update text
 	for i in list:
-		var ins = card.instantiate() as Button
+		var ins := card.instantiate() as Card
 		ins.text = i
 		cardContainer.add_child(ins)
 	pass # Replace with function body.
