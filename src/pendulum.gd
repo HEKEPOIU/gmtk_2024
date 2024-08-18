@@ -30,6 +30,7 @@ var angular_acceleration: float = 0.0
 
 func _ready() -> void:
 	end_point.on_hit_other.connect(deal_collide)
+	end_point.on_drag.connect(be_drag)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
 	set_start_position(rotation)
 
@@ -104,3 +105,10 @@ func deal_collide(other: Pendulum) -> void:
 	other.add_velocity(new_velocity)
 
 	queue_free()
+
+
+func be_drag() -> void:
+	var dir_to_mouse := (get_global_mouse_position() - pivot_pos).normalized()
+	print(dir_to_mouse)
+	var mouse_angle := -dir_to_mouse.angle_to(Vector2.DOWN)
+	set_start_position(mouse_angle)
