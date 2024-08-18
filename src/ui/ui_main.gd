@@ -42,14 +42,12 @@ func _on_card_click() -> void:
 		var length: float = p.length # todo:p.get_length()
 		var width: float = (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D).texture.get_size().x # todo: p.get_width()
 		# var border := borderPrefab.instantiate()  # todo: use prefab , idk why no appear when use prefab 
-		border.position = position - Vector2(width / 2, 0)
-		border.scale = Vector2(width / border.size.x, length / border.size.y)
-
-	
-	# show choose box
-
+		set_border(position - Vector2(width / 2, 0), Vector2(width / border.size.x, length / border.size.y))
 	pass
 
+func set_border(positon, scale):
+	border.position = position
+	border.scale = scale
 
 func _get_pendulum_info_array() -> Array:
 	var arr := Array([], TYPE_OBJECT, "Node", Pendulum)
