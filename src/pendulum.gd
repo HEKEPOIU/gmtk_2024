@@ -9,9 +9,11 @@ var angle: float
 var move_dir: int = 0
 var prev_pos: Vector2
 @export var move_velocity: float = 5
+@export var is_follow: bool = true
 
 @export var length: float = 500
 @export var gravity: float = 24
+@export var end_point_move_multiplier: float = 5
 var damping: float:
 	get:
 		return remap(mass, min_mass, max_mass, 0.995, 0.99)
@@ -37,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	prev_pos = global_position
 	process_velocity(delta, pos_diff)
 	update_position(delta, pos_diff)
-	move()
+	move(delta)
 
 
 func _process(_delta: float) -> void:
@@ -47,8 +49,8 @@ func _process(_delta: float) -> void:
 		move_dir += 1
 
 
-func move() -> void:
-	position.x += move_dir * move_velocity
+func move(delta: float) -> void:
+	position.x += move_dir * move_velocity * delta
 	move_dir = 0
 
 
@@ -63,7 +65,8 @@ func set_start_position(init_angle: float) -> void:
 
 
 func update_position(delta: float, pos_dif: Vector2) -> void:
-	angle += move_dir * delta * abs(pos_dif.x) * move_velocity * delta
+	if is_follow:
+		angle += move_dir * delta * abs(pos_dif.x) * delta * end_point_move_multiplier
 
 
 func process_velocity(delta: float, _pivot_pos_diff: Vector2) -> void:
