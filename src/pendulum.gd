@@ -25,6 +25,7 @@ var damping: float:
 @export var min_mass: float = 1
 @export var max_mass: float = 1000
 @export var is_current: bool = false
+@export var end_point_image: Texture2D
 
 var angular_velocity: float = 0.0
 var angular_acceleration: float = 0.0
@@ -37,6 +38,7 @@ func _ready() -> void:
 	end_point.on_drag.connect(be_drag)
 	end_point.on_drag_stop.connect(start_simulate)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
+	end_point.set_sprite(end_point_image)
 	set_mass(mass)
 	set_start_position(rotation)
 

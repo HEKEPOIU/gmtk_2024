@@ -1,25 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkt1em0yb1dvt"]
+[gd_scene load_steps=4 format=3 uid="uid://bkt1em0yb1dvt"]
 
 [ext_resource type="Script" path="res://src/pendulum.gd" id="1_giu4x"]
 [ext_resource type="PackedScene" uid="uid://caorjifvuen5f" path="res://scene/pendulum_end_point.tscn" id="2_d5bf6"]
+[ext_resource type="Texture2D" uid="uid://cy123xblsxfea" path="res://assets/iron_ball.png" id="2_i4pxb"]
 
 [node name="Pendulum" type="Node2D"]
 script = ExtResource("1_giu4x")
-move_velocity = null
-is_follow = null
-min_length = null
-max_length = null
-gravity = null
-end_point_move_multiplier = null
 mass = 1000.0
-min_mass = null
-max_mass = null
-is_current = null
+end_point_image = ExtResource("2_i4pxb")
 
 [node name="Line2D" type="Line2D" parent="."]
+position = Vector2(0, 3)
 points = PackedVector2Array(0, -3, 0, 541)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
+width = 30.0
+texture_mode = 1
 
 [node name="PendulumEndPoint" parent="." instance=ExtResource("2_d5bf6")]

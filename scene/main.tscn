@@ -1,22 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bamth8f5h3hkf"]
+[gd_scene load_steps=3 format=3 uid="uid://bamth8f5h3hkf"]
 
-[ext_resource type="PackedScene" uid="uid://bkt1em0yb1dvt" path="res://scene/pendulum.tscn" id="1_ahh23"]
+[ext_resource type="PackedScene" uid="uid://b84bsrf74ywbl" path="res://scene/varient_pendulum/pendulum_chain_ball.tscn" id="2_a5s0k"]
+[ext_resource type="PackedScene" uid="uid://21xgo8i1hmyo" path="res://scene/varient_pendulum/pendulum_rope_coin.tscn" id="3_k4voe"]
 
 [node name="main" type="Node"]
 
-[node name="Pendulum" parent="." instance=ExtResource("1_ahh23")]
-position = Vector2(883, 293)
-move_velocity = 2000.0
+[node name="Pendulum3" parent="." instance=ExtResource("2_a5s0k")]
+position = Vector2(910, 139)
 gravity = 200.0
-end_point_move_multiplier = 1.0
-mass = 20.0
-max_mass = 100.0
+mass = 10.0
 is_current = true
 
-[node name="Pendulum2" parent="." instance=ExtResource("1_ahh23")]
-position = Vector2(1308, 293)
-move_velocity = 2000.0
+[node name="Pendulum4" parent="." instance=ExtResource("3_k4voe")]
+position = Vector2(1224, 135)
 gravity = 200.0
-end_point_move_multiplier = 1.0
 mass = 10.0
-max_mass = 100.0

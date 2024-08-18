@@ -11,6 +11,8 @@ signal on_drag_stop
 var is_mouse_inside: bool
 var is_click: bool = false
 
+@onready var sprite: Sprite2D = get_node("Sprite2D")
+
 
 func _ready() -> void:
 	area_entered.connect(emit_hit)
@@ -25,6 +27,10 @@ func _process(_delta: float) -> void:
 		on_drag.emit()
 	elif Input.is_action_just_released("press") and is_mouse_inside:
 		on_drag_stop.emit()
+
+
+func set_sprite(image: Texture2D) -> void:
+	sprite.texture = image
 
 
 func emit_hit(body: Area2D) -> void:
