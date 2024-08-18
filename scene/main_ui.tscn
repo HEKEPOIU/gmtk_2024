@@ -13,7 +13,6 @@ mouse_filter = 1
 script = ExtResource("1_qae5q")
 
 [node name="StartUi" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -47,6 +46,6 @@ grow_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
+alignment = 1
 
 [connection signal="button_up" from="StartUi/Start" to="." method="_on_start_button_up"]
