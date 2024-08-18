@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bamth8f5h3hkf"]
+[gd_scene load_steps=3 format=3 uid="uid://bamth8f5h3hkf"]
 
 [ext_resource type="PackedScene" uid="uid://bkt1em0yb1dvt" path="res://scene/pendulum.tscn" id="1_ahh23"]
+[ext_resource type="PackedScene" uid="uid://mi0q0rdifude" path="res://scene/main_ui.tscn" id="3_6hq5n"]
 
 [node name="main" type="Node"]
 
@@ -20,3 +21,5 @@ gravity = 200.0
 end_point_move_multiplier = 1.0
 mass = 10.0
 max_mass = 100.0
+
+[node name="Control" parent="." instance=ExtResource("3_6hq5n")]
