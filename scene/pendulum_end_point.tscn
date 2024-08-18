@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://caorjifvuen5f"]
+
+[ext_resource type="Script" path="res://src/pendulum_end_point.gd" id="1_atb1l"]
+[ext_resource type="Texture2D" uid="uid://b0wpj747j530i" path="res://icon.svg" id="1_p628m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kih6h"]
+radius = 65.123
+
+[node name="PendulumEndPoint" type="Area2D"]
+position = Vector2(0, 545)
+script = ExtResource("1_atb1l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_p628m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kih6h")

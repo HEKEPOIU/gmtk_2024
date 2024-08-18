@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkt1em0yb1dvt"]
+
+[ext_resource type="Script" path="res://src/pendulum.gd" id="1_giu4x"]
+[ext_resource type="PackedScene" uid="uid://caorjifvuen5f" path="res://scene/pendulum_end_point.tscn" id="2_d5bf6"]
+
+[node name="Pendulum" type="Node2D"]
+script = ExtResource("1_giu4x")
+move_velocity = null
+length = null
+gravity = null
+mass = 1000.0
+min_mass = null
+max_mass = null
+is_current = null
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -3, 0, 541)
+
+[node name="PendulumEndPoint" parent="." instance=ExtResource("2_d5bf6")]
