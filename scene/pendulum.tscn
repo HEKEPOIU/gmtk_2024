@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkt1em0yb1dvt"]
+
+[ext_resource type="Script" path="res://src/pendulum.gd" id="1_giu4x"]
+[ext_resource type="Texture2D" uid="uid://b0wpj747j530i" path="res://icon.svg" id="2_pdagc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kih6h"]
+radius = 65.123
+
+[node name="Pendulum" type="Node2D"]
+script = ExtResource("1_giu4x")
+length = null
+gravity = null
+mass = null
+min_mass = null
+max_mass = null
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, -3, 0, 541)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 545)
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("2_pdagc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_kih6h")
