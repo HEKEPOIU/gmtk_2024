@@ -3,12 +3,13 @@ extends Node2D
 class_name Pendulum
 # follow this video:
 # https://www.youtube.com/watch?v=J1ClXGZIh00
+signal start
 var pivot_pos: Vector2
 var end_position: Vector2
 var angle: float
 var move_dir: int = 0
 var prev_pos: Vector2
-var is_simulating: bool = false
+var is_simulating: bool = true
 @export var move_velocity: float = 5
 @export var is_follow: bool = true
 
@@ -67,7 +68,7 @@ func set_start_position(init_angle: float) -> void:
 	angle = init_angle
 	angular_velocity = 0
 	angular_acceleration = 0
-	is_simulating = true
+	rotation = angle
 
 
 func update_position(delta: float, pos_dif: Vector2) -> void:
@@ -95,7 +96,7 @@ func set_mass(new_mass: float) -> void:
 
 func deal_collide(other: Pendulum) -> void:
 	if not is_current:
-		other.is_current = true
+		is_current = true
 		return
 	var percent: float = mass / other.mass
 	# u = (m_s * v_s + m_o * v_o) / (m_s + m_o)
@@ -113,12 +114,14 @@ func deal_collide(other: Pendulum) -> void:
 
 
 func be_drag() -> void:
-	if !is_simulating:
-		pass
+	if not is_current:
+		return
+	# TODO: this will cause line not follow
 	var dir_to_mouse := (get_global_mouse_position() - pivot_pos).normalized()
 	var mouse_angle := -dir_to_mouse.angle_to(Vector2.DOWN)
 	set_start_position(mouse_angle)
 
 
 func start_simulate() -> void:
-	is_simulating = true
+	if is_current:
+		start.emit()

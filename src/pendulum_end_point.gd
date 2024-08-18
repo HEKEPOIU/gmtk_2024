@@ -17,13 +17,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("press"):
+	if Input.is_action_just_pressed("press") and is_mouse_inside:
 		is_click = true
 	elif Input.is_action_just_released("press"):
 		is_click = false
-	if is_click and is_mouse_inside:
+	if is_click:
 		on_drag.emit()
-	elif not is_click or is_mouse_inside:
+	elif Input.is_action_just_released("press") and is_mouse_inside:
 		on_drag_stop.emit()
 
 
@@ -43,3 +43,5 @@ func _mouse_enter() -> void:
 
 func _mouse_exit() -> void:
 	is_mouse_inside = false
+	if is_click:
+		on_drag_stop.emit()
