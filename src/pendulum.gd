@@ -63,7 +63,7 @@ func set_start_position(init_angle: float) -> void:
 
 
 func update_position(delta: float, pos_dif: Vector2) -> void:
-	angle += move_dir * delta * pos_dif.x * move_velocity * delta
+	angle += move_dir * delta * abs(pos_dif.x) * move_velocity * delta
 
 
 func process_velocity(delta: float, _pivot_pos_diff: Vector2) -> void:
@@ -90,6 +90,7 @@ func deal_collide(other: Pendulum) -> void:
 		return
 	var percent: float = mass / other.mass
 	# u = (m_s * v_s + m_o * v_o) / (m_s + m_o)
+	# https://zh.wikipedia.org/zh-tw/%E6%93%BA
 	var new_velocity := (
 		(mass * angular_velocity + other.mass * other.angular_velocity)
 		/ (mass + other.mass)
