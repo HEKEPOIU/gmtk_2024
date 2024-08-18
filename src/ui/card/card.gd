@@ -14,5 +14,5 @@ func _process(delta: float) -> void:
 
 
 func _on_button_up() -> void:
-	Lib.disable(self)
+	UiHelper.disable(self)
 	pass  # Replace with function body.

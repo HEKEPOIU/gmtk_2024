@@ -44,7 +44,7 @@ func _on_start_button_up() -> void:
 	create_new_card_container()
 	_refresh_card_state(["1", "2", "3", "4", "5"])
 
-	Lib.disable(startUi)
+	UiHelper.disable(startUi)
 
 	game_start.emit()
 	pass  # Replace with function body.
