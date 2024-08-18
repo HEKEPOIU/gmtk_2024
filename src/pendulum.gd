@@ -34,6 +34,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var pos_diff := global_position - prev_pos
+	prev_pos = global_position
 	process_velocity(delta, pos_diff)
 	update_position(delta, pos_diff)
 	move()
@@ -62,7 +63,7 @@ func set_start_position(init_angle: float) -> void:
 
 
 func update_position(delta: float, pos_dif: Vector2) -> void:
-	angle += move_dir * delta * pos_dif.x * 0.1 * delta
+	angle += move_dir * delta * pos_dif.x * move_velocity * delta
 
 
 func process_velocity(delta: float, _pivot_pos_diff: Vector2) -> void:
