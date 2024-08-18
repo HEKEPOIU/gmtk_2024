@@ -7,21 +7,16 @@
 [node name="Pendulum" parent="." instance=ExtResource("1_ahh23")]
 position = Vector2(883, 293)
 move_velocity = 2000.0
-length = 700.0
 gravity = 200.0
 end_point_move_multiplier = 1.0
-mass = 10.0
-min_mass = 1.0
+mass = 20.0
 max_mass = 100.0
 is_current = true
 
 [node name="Pendulum2" parent="." instance=ExtResource("1_ahh23")]
-position = Vector2(1298, 293)
+position = Vector2(1308, 293)
 move_velocity = 2000.0
-length = 700.0
 gravity = 200.0
 end_point_move_multiplier = 1.0
 mass = 10.0
-min_mass = 1.0
 max_mass = 100.0
-is_current = false

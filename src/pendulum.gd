@@ -3,15 +3,19 @@ extends Node2D
 class_name Pendulum
 # follow this video:
 # https://www.youtube.com/watch?v=J1ClXGZIh00
+signal start
 var pivot_pos: Vector2
 var end_position: Vector2
 var angle: float
 var move_dir: int = 0
 var prev_pos: Vector2
+var is_simulating: bool = true
 @export var move_velocity: float = 5
 @export var is_follow: bool = true
 
-@export var length: float = 500
+var length: float
+@export var min_length: float = 400
+@export var max_length: float = 1200
 @export var gravity: float = 24
 @export var end_point_move_multiplier: float = 5
 var damping: float:
@@ -30,23 +34,29 @@ var angular_acceleration: float = 0.0
 
 func _ready() -> void:
 	end_point.on_hit_other.connect(deal_collide)
+	end_point.on_drag.connect(be_drag)
+	end_point.on_drag_stop.connect(start_simulate)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
+	set_mass(mass)
 	set_start_position(rotation)
 
 
 func _physics_process(delta: float) -> void:
+	if not is_simulating:
+		return
 	var pos_diff := global_position - prev_pos
 	prev_pos = global_position
 	process_velocity(delta, pos_diff)
 	update_position(delta, pos_diff)
 	move(delta)
+	set_end_point_position(length)
 
 
-func _process(_delta: float) -> void:
-	if Input.is_key_pressed(KEY_LEFT):
-		move_dir -= 1
-	if Input.is_key_pressed(KEY_RIGHT):
-		move_dir += 1
+# func _process(_delta: float) -> void:
+# 	if Input.is_key_pressed(KEY_LEFT):
+# 		move_dir -= 1
+# 	if Input.is_key_pressed(KEY_RIGHT):
+# 		move_dir += 1
 
 
 func move(delta: float) -> void:
@@ -62,6 +72,13 @@ func set_start_position(init_angle: float) -> void:
 	angle = init_angle
 	angular_velocity = 0
 	angular_acceleration = 0
+	rotation = angle
+
+
+func set_end_point_position(arm_length: float) -> void:
+	end_position = global_position + Vector2.DOWN.rotated(rotation) * arm_length
+	end_point.global_position = end_position
+	line.set_point_position(1, Vector2(0, arm_length))
 
 
 func update_position(delta: float, pos_dif: Vector2) -> void:
@@ -84,12 +101,14 @@ func add_velocity(velocity: float) -> void:
 
 func set_mass(new_mass: float) -> void:
 	mass = new_mass
+	length = remap(mass, min_mass, max_mass, min_length, max_length)
+	set_end_point_position(length)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
 
 
 func deal_collide(other: Pendulum) -> void:
 	if not is_current:
-		other.is_current = true
+		is_current = true
 		return
 	var percent: float = mass / other.mass
 	# u = (m_s * v_s + m_o * v_o) / (m_s + m_o)
@@ -104,3 +123,18 @@ func deal_collide(other: Pendulum) -> void:
 	other.add_velocity(new_velocity)
 
 	queue_free()
+
+
+func be_drag() -> void:
+	if not is_current:
+		return
+	# TODO: this will cause line not follow when mouse to fast
+	var dir_to_mouse := (get_global_mouse_position() - pivot_pos).normalized()
+	var mouse_angle := -dir_to_mouse.angle_to(Vector2.DOWN)
+	set_start_position(mouse_angle)
+
+
+func start_simulate() -> void:
+	if is_current:
+		set_end_point_position(length)
+		start.emit()
