@@ -45,9 +45,9 @@ func _on_card_click() -> void:
 		set_border(position - Vector2(width / 2, 0), Vector2(width / border.size.x, length / border.size.y))
 	pass
 
-func set_border(positon, scale):
-	border.position = position
-	border.scale = scale
+func set_border(target_positon: Vector2, target_scale: Vector2):
+	border.position = target_positon
+	border.scale = target_scale
 
 func _get_pendulum_info_array() -> Array:
 	var arr := Array([], TYPE_OBJECT, "Node", Pendulum)
