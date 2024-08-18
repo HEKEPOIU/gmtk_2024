@@ -5,7 +5,10 @@
 [node name="main" type="Node"]
 
 [node name="Pendulum" parent="." instance=ExtResource("1_ahh23")]
-position = Vector2(527, 11)
-rotation = 1.0472
-length = 1.0
-mass = 900.0
+position = Vector2(346, 104)
+rotation = 0.294961
+length = 500.0
+gravity = 200.0
+mass = 0.0
+min_mass = 1.0
+max_mass = 100.0
