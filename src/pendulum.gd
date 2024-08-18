@@ -8,6 +8,7 @@ var end_position: Vector2
 var angle: float
 var move_dir: int = 0
 var prev_pos: Vector2
+var is_simulating: bool = false
 @export var move_velocity: float = 5
 @export var is_follow: bool = true
 
@@ -31,11 +32,14 @@ var angular_acceleration: float = 0.0
 func _ready() -> void:
 	end_point.on_hit_other.connect(deal_collide)
 	end_point.on_drag.connect(be_drag)
+	end_point.on_drag_stop.connect(start_simulate)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
 	set_start_position(rotation)
 
 
 func _physics_process(delta: float) -> void:
+	if not is_simulating:
+		return
 	var pos_diff := global_position - prev_pos
 	prev_pos = global_position
 	process_velocity(delta, pos_diff)
@@ -63,6 +67,7 @@ func set_start_position(init_angle: float) -> void:
 	angle = init_angle
 	angular_velocity = 0
 	angular_acceleration = 0
+	is_simulating = true
 
 
 func update_position(delta: float, pos_dif: Vector2) -> void:
@@ -108,7 +113,12 @@ func deal_collide(other: Pendulum) -> void:
 
 
 func be_drag() -> void:
+	if !is_simulating:
+		pass
 	var dir_to_mouse := (get_global_mouse_position() - pivot_pos).normalized()
-	print(dir_to_mouse)
 	var mouse_angle := -dir_to_mouse.angle_to(Vector2.DOWN)
 	set_start_position(mouse_angle)
+
+
+func start_simulate() -> void:
+	is_simulating = true

@@ -7,6 +7,7 @@ class_name PendulumEndPoint
 
 signal on_hit_other(other: Pendulum)
 signal on_drag
+signal on_drag_stop
 var is_mouse_inside: bool
 var is_click: bool = false
 
@@ -22,6 +23,8 @@ func _process(_delta: float) -> void:
 		is_click = false
 	if is_click and is_mouse_inside:
 		on_drag.emit()
+	elif not is_click or is_mouse_inside:
+		on_drag_stop.emit()
 
 
 func emit_hit(body: Area2D) -> void:
