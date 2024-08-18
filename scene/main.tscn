@@ -24,7 +24,9 @@ end_point_move_multiplier = 1.0
 mass = 10.0
 max_mass = 100.0
 
-[node name="Canvas" parent="." instance=ExtResource("3_6hq5n")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Canvas" parent="CanvasLayer" instance=ExtResource("3_6hq5n")]
