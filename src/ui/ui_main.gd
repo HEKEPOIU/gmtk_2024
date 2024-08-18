@@ -49,9 +49,9 @@ func _on_card_click() -> void:
 	var arr := _get_pendulum_info_array()
 	for p: Pendulum in arr:
 		var position: Vector2 = p.position
-		var length: float = p.length # p.get_length()
-		var width: float = (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D).texture.get_size().x # p.get_width()
-		# var border := borderPrefab.instantiate()  # todo: use prefab 
+		var length: float = p.length # todo:p.get_length()
+		var width: float = (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D).texture.get_size().x # todo: p.get_width()
+		# var border := borderPrefab.instantiate()  # todo: use prefab , idk why no appear when use prefab 
 		border.position = position - Vector2(width / 2, 0)
 		border.scale = Vector2(width / border.size.x, length / border.size.y)
 
