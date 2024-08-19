@@ -28,7 +28,11 @@ var damping: float:
 @export var is_current: bool = false
 @export var end_point_image: Texture2D
 @export var max_angular_velocity: float = 0.5
+@export_dir var end_point_image_path: String
+@export_dir var chain_image_path: String
 
+var end_point_images: Array[Texture2D]
+var chain_images: Array[Texture2D]
 var angular_velocity: float = 0.0
 var angular_acceleration: float = 0.0
 @onready var end_point: PendulumEndPoint = get_node("PendulumEndPoint")
@@ -36,14 +40,32 @@ var angular_acceleration: float = 0.0
 
 
 func _ready() -> void:
+	lazy_init_image()
 	end_point.on_hit_other.connect(deal_collide)
 	end_point.on_drag.connect(be_drag)
 	end_point.on_drag_stop.connect(start_simulate)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
-	end_point.set_sprite(end_point_image)
+	end_point.set_sprite(end_point_images.pick_random())
+	line.texture = chain_images.pick_random()
 	prev_pos = global_position
 	set_mass(mass)
 	set_start_position(rotation)
+
+
+func lazy_init_image() -> void:
+	if end_point_images.is_empty() or chain_images.is_empty():
+		for file_name in DirAccess.get_files_at(end_point_image_path):
+			file_name = file_name.replace('.import', '')
+			if file_name.get_extension() == "png":
+				file_name = file_name.replace('.import', '')
+				var texture: CompressedTexture2D = ResourceLoader.load(end_point_image_path + "/" + file_name)
+				end_point_images.push_back(texture)
+
+		for file_name in DirAccess.get_files_at(chain_image_path):
+			file_name = file_name.replace('.import', '')
+			if file_name.get_extension() == "png":
+				var texture: CompressedTexture2D = ResourceLoader.load(chain_image_path + "/" + file_name)
+				chain_images.push_back(texture)
 
 
 func _physics_process(delta: float) -> void:
@@ -83,7 +105,9 @@ func process_velocity(delta: float, _pivot_pos_diff: Vector2) -> void:
 	angular_velocity += angular_acceleration
 	angular_velocity *= damping
 
-	angular_velocity = clamp(angular_velocity, -max_angular_velocity * delta, max_angular_velocity * delta)
+	angular_velocity = clamp(
+		angular_velocity, -max_angular_velocity * delta, max_angular_velocity * delta
+	)
 	angle += angular_velocity
 
 	rotation = angle

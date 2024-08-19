@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://b84bsrf74ywbl"]
-
-[ext_resource type="PackedScene" uid="uid://bkt1em0yb1dvt" path="res://scene/pendulum.tscn" id="1_rdlsg"]
-[ext_resource type="Texture2D" uid="uid://cqp36mrh61cx" path="res://assets/chain.png" id="2_moxeh"]
-
-[node name="Pendulum" instance=ExtResource("1_rdlsg")]
-
-[node name="Line2D" parent="." index="0"]
-texture = ExtResource("2_moxeh")
