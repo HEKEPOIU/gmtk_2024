@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmibyak3ptiqq"]
+
+[ext_resource type="Texture2D" uid="uid://0pn765066n12" path="res://border.png" id="1_xsrqk"]
+
+[node name="NinePatchRect" type="NinePatchRect"]
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 39.0
+offset_bottom = 37.0
+texture = ExtResource("1_xsrqk")

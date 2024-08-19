@@ -1,17 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://bamth8f5h3hkf"]
+[gd_scene load_steps=6 format=3 uid="uid://bamth8f5h3hkf"]
 
-[ext_resource type="PackedScene" uid="uid://b84bsrf74ywbl" path="res://scene/varient_pendulum/pendulum_chain_ball.tscn" id="2_a5s0k"]
-[ext_resource type="PackedScene" uid="uid://21xgo8i1hmyo" path="res://scene/varient_pendulum/pendulum_rope_coin.tscn" id="3_k4voe"]
+[ext_resource type="PackedScene" uid="uid://bkt1em0yb1dvt" path="res://scene/pendulum.tscn" id="1_ahh23"]
+[ext_resource type="Script" path="res://src/main.gd" id="1_gy4id"]
+[ext_resource type="Script" path="res://scene/camera_manager.gd" id="3_6fkyf"]
+[ext_resource type="PackedScene" uid="uid://mi0q0rdifude" path="res://scene/main_ui.tscn" id="3_6hq5n"]
+[ext_resource type="PackedScene" uid="uid://bmibyak3ptiqq" path="res://src/ui/card/border.tscn" id="5_o6d60"]
 
 [node name="main" type="Node"]
+script = ExtResource("1_gy4id")
 
-[node name="Pendulum3" parent="." instance=ExtResource("2_a5s0k")]
-position = Vector2(910, 139)
-gravity = 200.0
-mass = 10.0
-is_current = true
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(965, 538)
+script = ExtResource("3_6fkyf")
 
-[node name="Pendulum4" parent="." instance=ExtResource("3_k4voe")]
-position = Vector2(1224, 135)
-gravity = 200.0
-mass = 10.0
+[node name="NinePatchRect" parent="." instance=ExtResource("5_o6d60")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 291.0
+offset_right = -34.0
+offset_bottom = 331.0
+grow_horizontal = 2
+patch_margin_left = 54
+patch_margin_top = 49
+patch_margin_right = 42
+patch_margin_bottom = 70
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Canvas" parent="CanvasLayer" node_paths=PackedStringArray("border", "test_pendulum") instance=ExtResource("3_6hq5n")]
+border = NodePath("../../NinePatchRect")
+test_pendulum = NodePath("../../Pendulum")
