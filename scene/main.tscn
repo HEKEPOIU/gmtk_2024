@@ -1,10 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://bamth8f5h3hkf"]
+[gd_scene load_steps=12 format=3 uid="uid://bamth8f5h3hkf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_gy4id"]
 [ext_resource type="Script" path="res://scene/camera_manager.gd" id="3_6fkyf"]
 [ext_resource type="PackedScene" uid="uid://mi0q0rdifude" path="res://scene/main_ui.tscn" id="3_6hq5n"]
 [ext_resource type="PackedScene" uid="uid://prj2jrlt2fu1" path="res://scene/pendulum_manager.tscn" id="5_a8atf"]
 [ext_resource type="PackedScene" uid="uid://bmibyak3ptiqq" path="res://src/ui/card/border.tscn" id="5_o6d60"]
+[ext_resource type="PackedScene" uid="uid://bkt1em0yb1dvt" path="res://scene/pendulum.tscn" id="6_q0g7m"]
+[ext_resource type="Texture2D" uid="uid://cqp36mrh61cx" path="res://assets/rope/chain.png" id="7_75l6k"]
+[ext_resource type="Texture2D" uid="uid://c6yefofbbgtu" path="res://assets/ball/coin.png" id="8_1pjxk"]
+[ext_resource type="Texture2D" uid="uid://bovbxo54kddwk" path="res://assets/rope/rope.png" id="9_gynd3"]
+
+[sub_resource type="PackedScene" id="PackedScene_6054t"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Pendulum", "Line2D", "texture", "PendulumEndPoint"),
+"node_count": 2,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 0, 0, 0, 0, 2147483647, 262145, -1, 1, 2, 1, 0),
+"variants": [ExtResource("6_q0g7m"), ExtResource("7_75l6k")],
+"version": 3
+}
+
+[sub_resource type="PackedScene" id="PackedScene_824u5"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Pendulum", "end_point_image", "Line2D", "texture", "PendulumEndPoint"),
+"node_count": 2,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 1, 1, 1, 0, 0, 0, 2147483647, 262146, -1, 1, 3, 2, 0),
+"variants": [ExtResource("6_q0g7m"), ExtResource("8_1pjxk"), ExtResource("9_gynd3")],
+"version": 3
+}
 
 [node name="main" type="Node"]
 script = ExtResource("1_gy4id")
@@ -36,3 +68,4 @@ visible = false
 border = NodePath("../../NinePatchRect")
 
 [node name="PendulumManager" parent="." instance=ExtResource("5_a8atf")]
+pendulum_scene = Array[PackedScene]([SubResource("PackedScene_6054t"), SubResource("PackedScene_824u5")])
