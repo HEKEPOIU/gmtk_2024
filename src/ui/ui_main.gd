@@ -3,6 +3,7 @@ extends Control
 class_name UiMain
 
 var card := preload("res://scene/card.tscn")
+# var card_resource := preload("res://src/ui/card/inverse_speed_card.gd")
 # var borderPrefab := preload("res://src/ui/card/border.tscn")
 @export var border: NinePatchRect
 
@@ -31,17 +32,20 @@ func _refresh_card_state(list: PackedStringArray) -> void:
 		ins.text = i
 		ins.on_card_click.connect(_on_card_click)
 		cardContainer.add_child(ins)
-		
+
 	pass # Replace with function body.
 
-func _on_card_click() -> void:
+func _on_card_click(res: CardEffect) -> void:
 	print("card click")
+	print(res)
 	var arr := _get_pendulum_info_array()
 	for p: Pendulum in arr:
+		res.on_trigger(p)
 		var position: Vector2 = p.position
 		var length: float = p.length # todo:p.get_length()
 		var width: float = (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D).texture.get_size().x # todo: p.get_width()
-		# var border := borderPrefab.instantiate()  # todo: use prefab , idk why no appear when use prefab 
+		# var border := borderPrefab.instantiate()  # todo: use prefab , idk why no appear when use prefab
+		# card_resource.on_trigger(p)
 		set_border(position - Vector2(width / 2, 0), Vector2(width, length))
 	pass
 
