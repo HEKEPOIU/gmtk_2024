@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/pendulum.gd" id="1_giu4x"]
 [ext_resource type="PackedScene" uid="uid://caorjifvuen5f" path="res://scene/pendulum_end_point.tscn" id="2_d5bf6"]
-[ext_resource type="Texture2D" uid="uid://cy123xblsxfea" path="res://assets/iron_ball.png" id="2_i4pxb"]
+[ext_resource type="Texture2D" uid="uid://cy123xblsxfea" path="res://assets/ball/iron_ball.png" id="2_i4pxb"]
 
 [node name="Pendulum" type="Node2D"]
 script = ExtResource("1_giu4x")
@@ -13,6 +13,8 @@ end_point_move_multiplier = 2.0
 mass = 10.0
 max_mass = 50.0
 end_point_image = ExtResource("2_i4pxb")
+end_point_image_path = "res://assets/ball"
+chain_image_path = "res://assets/rope"
 
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2(0, 3)
