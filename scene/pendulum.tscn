@@ -7,15 +7,15 @@
 [node name="Pendulum" type="Node2D"]
 position = Vector2(17, -13)
 script = ExtResource("1_giu4x")
-min_length = 550.0
+min_length = 650.0
 max_length = 1500.0
 gravity = 980.0
-end_point_move_multiplier = 2.0
-mass = 10.0
+end_point_move_multiplier = 4.0
+mass = 20.0
 max_mass = 300.0
 end_point_image = ExtResource("2_i4pxb")
 max_angular_velocity = 100.0
-addition_velocity_when_collide = 3.75
+addition_velocity_when_collide = 2.5
 end_point_image_path = "res://assets/ball"
 chain_image_path = "res://assets/rope"
 

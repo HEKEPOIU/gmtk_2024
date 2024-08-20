@@ -159,7 +159,7 @@ func deal_collide(other: Pendulum) -> void:
 
 		other.add_velocity(new_velocity + dir * addi)
 
-		other.set_mass(mass + other.mass)
+		other.set_mass(mass + other.mass/2)
 		if not other.is_current:
 			be_eat.emit(self)
 		if have_card:
