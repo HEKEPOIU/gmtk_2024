@@ -2,5 +2,6 @@ extends Resource
 
 class_name CardEffect
 
-func on_trigger(target:Pendulum) -> void:
+@export var name: String = 'name'
+func on_trigger(target: Pendulum) -> void:
 	pass

@@ -14,18 +14,13 @@ script = ExtResource("1_qae5q")
 
 [node name="StartUi" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -240.0
-offset_top = -210.0
-offset_right = 236.0
-offset_bottom = -68.0
-grow_horizontal = 2
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -71.0
+offset_right = 476.0
+offset_bottom = 71.0
+grow_vertical = 2
 
 [node name="Start" type="Button" parent="StartUi"]
 custom_minimum_size = Vector2(100, 50)
@@ -49,4 +44,4 @@ layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[connection signal="button_up" from="StartUi/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="StartUi/Start" to="." method="on_start_button_up"]

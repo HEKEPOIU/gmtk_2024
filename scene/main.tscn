@@ -30,8 +30,7 @@ patch_margin_bottom = 70
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Canvas" parent="CanvasLayer" node_paths=PackedStringArray("border") instance=ExtResource("3_6hq5n")]
-border = NodePath("../../NinePatchRect")
+[node name="Canvas" parent="CanvasLayer" instance=ExtResource("3_6hq5n")]
 
 [node name="PendulumManager" parent="." instance=ExtResource("5_a8atf")]
 move_time = 0.05
