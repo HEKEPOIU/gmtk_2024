@@ -18,4 +18,4 @@ pen = NodePath("Pendulum")
 layout_mode = 1
 
 [node name="Pendulum" parent="." instance=ExtResource("3_yp5fy")]
-position = Vector2(549, 5)
+position = Vector2(559, -30)

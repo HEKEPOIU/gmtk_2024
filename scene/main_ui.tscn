@@ -44,4 +44,4 @@ layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[connection signal="button_up" from="StartUi/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="StartUi/Start" to="." method="on_start_button_up"]

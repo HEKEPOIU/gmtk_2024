@@ -3,7 +3,7 @@ extends Button
 class_name Card
 
 
-@export var card_effect: Resource = preload("res://src/ui/card/card_effect/inverse_speed_card.gd")
+@export var card_effect: CardEffect = preload("res://src/ui/card/card_effect/inverse_speed_card.gd").new()
 
 signal on_card_click
 
@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 
 
 func _on_button_up() -> void:
-	on_card_click.emit(card_effect.new())
+	on_card_click.emit(card_effect)
 	# UiHelper.disable(self)
 
 	pass # Replace with function body.

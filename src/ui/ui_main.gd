@@ -10,7 +10,8 @@ var card := preload("res://scene/card.tscn")
 @onready var startUi := get_node("StartUi")
 @onready var cardContainer := get_node("PanelContainer/HBoxContainer")
 @export var test_pendulum: Pendulum
-@export var next_card_effect:CardEffect
+@export var next_card_effect: CardEffect
+
 
 signal game_start
 
@@ -27,10 +28,12 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _refresh_card_state(list: PackedStringArray) -> void:
-	for i in list:
+func refresh_card_state(list) -> void:
+	print(list)
+	for i: CardEffect in list:
 		var ins: Card = card.instantiate() as Card
-		ins.text = i
+		ins.text = i.resource_name
+		ins.card_effect = i
 		ins.on_card_click.connect(_on_card_click)
 		cardContainer.add_child(ins)
 
@@ -43,17 +46,20 @@ func _on_card_click(res: CardEffect) -> void:
 	on_card_click.emit()
 	pass
 func show_border(arr, border_size: Vector2) -> void:
-	for p:Pendulum in arr:
+	for p: Pendulum in arr:
 		var length: float = p.length
-		var sp :=(p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D)
+		var sp := (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D)
 		var width: float = sp.texture.get_size().x * sp.scale.x
 		var new_border := borderPrefab.instantiate()
 		self.add_child(new_border)
-		new_border.on_choose.connect(func ()->void: next_card_effect.on_trigger(p))
-		set_border(new_border,p.position - Vector2(width/2,0), Vector2(width, length))# todo: use right width
+		new_border.on_choose.connect(func() -> void:
+			next_card_effect.on_trigger(p)
+			UiHelper.disable(new_border)
+			)
+		set_border(new_border, p.position - Vector2(width / 2, 0), Vector2(width, length)) # todo: use right width
 	pass
 
-func set_border(border:ChooseBox,target_positon: Vector2, target_size: Vector2):
+func set_border(border: ChooseBox, target_positon: Vector2, target_size: Vector2):
 	border.global_position = target_positon
 	border.size = target_size
 
@@ -62,10 +68,11 @@ func _get_pendulum_info_array() -> Array:
 	arr.append(test_pendulum)
 	return arr
 
-func _on_start_button_up() -> void:
-	_refresh_card_state(["1", "2", "3", "4", "5"])
+func on_start_button_up() -> void:
+	# refresh_card_state(["1", "2", "3", "4", "5"])
 
 	UiHelper.disable(startUi)
 
+	print('game start')
 	game_start.emit()
 	pass # Replace with function body.
