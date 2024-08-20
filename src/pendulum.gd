@@ -7,6 +7,7 @@ signal start
 signal on_drag(pos: Vector2)
 signal be_current(pendulum: Pendulum)
 signal be_eat(pendulum: Pendulum)
+signal drop_card
 var can_contorl: bool = false
 var pivot_pos: Vector2
 var end_position: Vector2
@@ -35,11 +36,13 @@ var damping: float:
 @export_dir var end_point_image_path: String
 @export_dir var chain_image_path: String
 
-var end_point_images: Array[Texture2D]
-var chain_images: Array[Texture2D]
+
+var end_point_images: Dictionary
+var chain_images: Dictionary
 var angular_velocity: float = 0.0
 var angular_acceleration: float = 0.0
 var cache_delta: float
+var have_card: bool = false
 @onready var end_point: PendulumEndPoint = get_node("PendulumEndPoint")
 @onready var line: Line2D = get_node("Line2D")
 
@@ -50,8 +53,7 @@ func _ready() -> void:
 	end_point.on_drag.connect(be_drag)
 	end_point.on_drag_stop.connect(start_simulate)
 	end_point.set_scale_base_mass(mass, min_mass, max_mass)
-	end_point.set_sprite(end_point_images.pick_random())
-	line.texture = chain_images.pick_random()
+	random_select_ball_texture()
 	prev_pos = global_position
 	set_mass(mass)
 	set_start_position(rotation)
@@ -63,14 +65,22 @@ func lazy_init_image() -> void:
 			file_name = file_name.replace('.import', '')
 			if file_name.get_extension() == "png":
 				var texture: CompressedTexture2D = ResourceLoader.load(end_point_image_path + "/" + file_name)
-				end_point_images.push_back(texture)
+				end_point_images[file_name] = texture
 
 		for file_name in DirAccess.get_files_at(chain_image_path):
 			file_name = file_name.replace('.import', '')
 			if file_name.get_extension() == "png":
 				var texture: CompressedTexture2D = ResourceLoader.load(chain_image_path + "/" + file_name)
-				chain_images.push_back(texture)
+				chain_images[file_name] = texture
 
+
+func random_select_ball_texture() -> void:
+	var end_point_image_name: String = end_point_images.keys().pick_random()
+	var random_texture: CompressedTexture2D = end_point_images[end_point_image_name]
+	line.texture = chain_images[chain_images.keys().pick_random()]
+	if end_point_image_name.contains("glass_ball"):
+		have_card = true
+	end_point.set_sprite(random_texture)
 
 func _physics_process(delta: float) -> void:
 	if not is_simulating:
@@ -152,6 +162,8 @@ func deal_collide(other: Pendulum) -> void:
 		other.set_mass(mass + other.mass)
 		if not other.is_current:
 			be_eat.emit(self)
+		if have_card:
+			drop_card.emit()
 		queue_free()
 
 

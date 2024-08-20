@@ -5,6 +5,7 @@ class_name PendulumManager
 signal on_change_pendulum(new_current: Pendulum)
 signal release_pendulum
 signal collide
+signal drop_card
 @export var pendulum_scene: Array[PackedScene]
 @export var pendulum_margin: float = 320
 @export var pendulum_pivot_height: int = 360
@@ -54,6 +55,7 @@ func spawn_pendulum_on_container(index: int, dir: int) -> Pendulum:
 	var new_pendulum: Pendulum = generate_random_pendulum()
 	new_pendulum.be_current.connect(current_change)
 	new_pendulum.be_eat.connect(remove_pendulum)
+	new_pendulum.drop_card.connect(drop)
 	# if not this it godot debugger will runtime error,
 	# but it won't stop play_mode on my machine
 	call_deferred("add_child", new_pendulum)
@@ -106,7 +108,6 @@ func recycle(pendulum: Pendulum) -> void:
 func change_margin() -> void:
 	var size: Vector2 = current_pendulum.end_point.get_size()
 	pendulum_margin = size.x * margin_multiply
-	print(pendulum_margin)
 
 
 func spawn_on_array(target_array: Array[Pendulum]) -> void:
@@ -189,3 +190,6 @@ func remove_pendulum(pendulum: Pendulum) -> void:
 	collide.emit()
 	left_pendulums.erase(pendulum)
 	right_pendulums.erase(pendulum)
+
+func drop() -> void:
+	drop_card.emit()
