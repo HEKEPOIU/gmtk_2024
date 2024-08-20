@@ -12,8 +12,9 @@ var card := preload("res://scene/card.tscn")
 @export var test_pendulum: Pendulum
 @export var next_card_effect: CardEffect
 
-
+var all_border: Array[ChooseBox] = []
 signal game_start
+signal on_card_click
 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,37 +28,41 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func add_card(i: CardEffect) -> void:
+	var ins: Card = card.instantiate() as Card
+	print(i.name)
+	ins.text = i.name
+	ins.card_effect = i
+	ins.on_card_click.connect(_on_card_click)
+	cardContainer.add_child(ins)
 
 func refresh_card_state(list) -> void:
-	print(list)
 	for i: CardEffect in list:
-		var ins: Card = card.instantiate() as Card
-		print(i.name)
-		ins.text = i.name
-		ins.card_effect = i
-		ins.on_card_click.connect(_on_card_click)
-		cardContainer.add_child(ins)
+		add_card(i)
 
-	pass # Replace with function body.
-
-signal on_card_click
 
 func _on_card_click(res: CardEffect) -> void:
 	next_card_effect = res
 	on_card_click.emit()
 	pass
-func show_border(arr, border_size: Vector2) -> void:
+
+func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 	for p: Pendulum in arr:
 		var length: float = p.length
-		var sp := (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D)
-		var width: float = sp.texture.get_size().x * sp.scale.x
+		var h: float = p.length + p.end_point.get_size().y
+		var w: float = p.end_point.get_size().x
 		var new_border := borderPrefab.instantiate()
 		self.add_child(new_border)
 		new_border.on_choose.connect(func() -> void:
 			next_card_effect.on_trigger(p)
 			UiHelper.disable(new_border)
+			for b in all_border:
+				UiHelper.disable(b)
+			all_border.clear()
 			)
-		set_border(new_border, p.position - Vector2(width / 2, 0), Vector2(width, length)) # todo: use right width
+		set_border(new_border, p.global_position - Vector2(w / 2, 0), Vector2(w, h))
+		all_border.append(new_border)
+
 	pass
 
 func set_border(border: ChooseBox, target_positon: Vector2, target_size: Vector2):

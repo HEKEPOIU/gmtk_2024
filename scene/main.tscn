@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bamth8f5h3hkf"]
+[gd_scene load_steps=7 format=3 uid="uid://bamth8f5h3hkf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_gy4id"]
 [ext_resource type="Script" path="res://scene/camera_manager.gd" id="3_6fkyf"]
 [ext_resource type="PackedScene" uid="uid://mi0q0rdifude" path="res://scene/main_ui.tscn" id="3_6hq5n"]
 [ext_resource type="Texture2D" uid="uid://cbmws62tgyejb" path="res://assets/background/Background_for_the_game.png" id="3_nkxm2"]
 [ext_resource type="PackedScene" uid="uid://prj2jrlt2fu1" path="res://scene/pendulum_manager.tscn" id="5_a8atf"]
-[ext_resource type="PackedScene" uid="uid://bmibyak3ptiqq" path="res://src/ui/card/border.tscn" id="5_o6d60"]
-[ext_resource type="PackedScene" uid="uid://bmuvhe7rycxhr" path="res://scene/audio_manager.tscn" id="6_mghdt"]
+[ext_resource type="PackedScene" path="res://scene/audio_manager.tscn" id="6_mghdt"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_gy4id")
@@ -21,15 +20,6 @@ current = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
 texture = ExtResource("3_nkxm2")
-
-[node name="NinePatchRect" parent="." instance=ExtResource("5_o6d60")]
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -82.0
-offset_top = 291.0
-offset_right = -42.0
-offset_bottom = 331.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
