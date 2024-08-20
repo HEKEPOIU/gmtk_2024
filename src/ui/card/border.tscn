@@ -1,10 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmibyak3ptiqq"]
+[gd_scene load_steps=3 format=3 uid="uid://bmibyak3ptiqq"]
 
+[ext_resource type="Script" path="res://src/ui/card/ChooseBox.gd" id="1_wmyi2"]
 [ext_resource type="Texture2D" uid="uid://0pn765066n12" path="res://border.png" id="1_xsrqk"]
 
-[node name="NinePatchRect" type="NinePatchRect"]
-offset_left = -1.0
-offset_top = -3.0
-offset_right = 39.0
-offset_bottom = 37.0
+[node name="Button" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wmyi2")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_xsrqk")
