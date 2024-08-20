@@ -60,7 +60,7 @@ func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 				UiHelper.disable(b)
 			all_border.clear()
 			)
-		set_border(new_border, p.global_position - Vector2(w / 2, 0), Vector2(w, h))
+		set_border(new_border, p.get_screen_transform().origin - Vector2(w / 2, 0), Vector2(w, h))
 		all_border.append(new_border)
 
 	pass
