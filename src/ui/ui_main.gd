@@ -46,7 +46,7 @@ func _on_card_click(res: CardEffect) -> void:
 	next_card_effect = res
 	on_card_click.emit()
 	pass
-func show_border(arr, border_size: Vector2) -> void:
+func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 	for p: Pendulum in arr:
 		var length: float = p.length
 		var sp := (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D)
