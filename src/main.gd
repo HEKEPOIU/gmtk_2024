@@ -28,7 +28,7 @@ func _ready() -> void:
 	canvas.on_card_click.connect((func() -> void: canvas.show_border(pendulum_manager.get_all_pendulum(), Vector2(1, 1))))
 	on_start.connect(func() -> void:
 		print('print list')
-		canvas.refresh_card_state([add_speed_card.new(), inverse_speed_card.new(), double_speed_card.new()]))
+		canvas.refresh_card_state([add_speed_card.new(), inverse_speed_card.new(), add_speed_card.new(), add_speed_card.new(), add_speed_card.new(), add_speed_card.new(), add_speed_card.new()]))
 
 	pendulum_manager.drop_card.connect(func() -> void:
 		var my_random_number = int(rng.randf_range(0, 10.0)) % 3
