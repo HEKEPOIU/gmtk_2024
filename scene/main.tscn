@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bamth8f5h3hkf"]
+[gd_scene load_steps=8 format=3 uid="uid://bamth8f5h3hkf"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_gy4id"]
 [ext_resource type="Script" path="res://scene/camera_manager.gd" id="3_6fkyf"]
 [ext_resource type="PackedScene" uid="uid://mi0q0rdifude" path="res://scene/main_ui.tscn" id="3_6hq5n"]
+[ext_resource type="Texture2D" uid="uid://cbmws62tgyejb" path="res://assets/background/Background_for_the_game.png" id="3_nkxm2"]
 [ext_resource type="PackedScene" uid="uid://prj2jrlt2fu1" path="res://scene/pendulum_manager.tscn" id="5_a8atf"]
 [ext_resource type="PackedScene" uid="uid://bmibyak3ptiqq" path="res://src/ui/card/border.tscn" id="5_o6d60"]
+[ext_resource type="PackedScene" uid="uid://bmuvhe7rycxhr" path="res://scene/audio_manager.tscn" id="6_mghdt"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_gy4id")
@@ -13,6 +15,12 @@ script = ExtResource("1_gy4id")
 position = Vector2(965, 538)
 script = ExtResource("3_6fkyf")
 move_duration = 0.5
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
+current = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+texture = ExtResource("3_nkxm2")
 
 [node name="NinePatchRect" parent="." instance=ExtResource("5_o6d60")]
 anchors_preset = 5
@@ -37,3 +45,5 @@ border = NodePath("../../NinePatchRect")
 move_time = 0.05
 margin_multiply = 2.5
 pre_generate_size = 4
+
+[node name="AudioManager" parent="." instance=ExtResource("6_mghdt")]

@@ -4,6 +4,7 @@ class_name PendulumManager
 
 signal on_change_pendulum(new_current: Pendulum)
 signal release_pendulum
+signal collide
 @export var pendulum_scene: Array[PackedScene]
 @export var pendulum_margin: float = 320
 @export var pendulum_pivot_height: int = 360
@@ -182,5 +183,6 @@ func start_offset_base_dir(dir: int) -> void:
 			left_pendulums[i].is_moving = true
 
 func remove_pendulum(pendulum: Pendulum) -> void:
+	collide.emit()
 	left_pendulums.erase(pendulum)
 	right_pendulums.erase(pendulum)
