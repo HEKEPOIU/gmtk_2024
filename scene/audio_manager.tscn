@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmuvhe7rycxhr"]
+
+[ext_resource type="Script" path="res://src/audio_manager.gd" id="1_j6hvd"]
+[ext_resource type="AudioStream" uid="uid://r3bvfpol2b43" path="res://assets/audio/FASTER-TEMPO2019-12-09_-_Retro_Forest_-_David_Fesliyan.mp3" id="1_oer2l"]
+[ext_resource type="AudioStream" uid="uid://du6o0r1lg1rlb" path="res://assets/audio/one_beep-99630.mp3" id="3_xvn8r"]
+[ext_resource type="AudioStream" uid="uid://8st8kwt5s11r" path="res://assets/audio/coin-collect-retro-8-bit-sound-effect-145251.mp3" id="4_7161v"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_j6hvd")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_oer2l")
+autoplay = true
+max_distance = 9.22337e+18
+parameters/looping = true
+
+[node name="ColideBall" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xvn8r")
+volume_db = 2.173
+max_distance = 9.22337e+18
+max_polyphony = 10
+
+[node name="CardEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_7161v")
+volume_db = 2.173
+max_distance = 9.22337e+18
+max_polyphony = 10
