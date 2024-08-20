@@ -11,6 +11,7 @@ var card := preload("res://scene/card.tscn")
 @onready var cardContainer := get_node("PanelContainer/HBoxContainer")
 @export var test_pendulum: Pendulum
 @export var next_card_effect: CardEffect
+@export var next_card: Card
 
 var all_border: Array[ChooseBox] = []
 signal game_start
@@ -41,8 +42,9 @@ func refresh_card_state(list) -> void:
 		add_card(i)
 
 
-func _on_card_click(res: CardEffect) -> void:
-	next_card_effect = res
+func _on_card_click(res: Card) -> void:
+	next_card = res
+	next_card_effect = res.card_effect
 	on_card_click.emit()
 	pass
 
@@ -53,13 +55,16 @@ func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 		var w: float = p.end_point.get_size().x
 		var new_border := borderPrefab.instantiate()
 		self.add_child(new_border)
-		new_border.on_choose.connect(func() -> void:
+		new_border.on_choose.connect(
+		func() -> void:
 			next_card_effect.on_trigger(p)
-			UiHelper.disable(new_border)
 			for b in all_border:
 				UiHelper.disable(b)
+			if next_card:
+				cardContainer.remove_child(next_card)
+				next_card.queue_free()
 			all_border.clear()
-			)
+		)
 		set_border(new_border, p.get_screen_transform().origin - Vector2(w / 2, 0), Vector2(w, h))
 		all_border.append(new_border)
 

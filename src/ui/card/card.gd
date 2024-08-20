@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 
 
 func _on_button_up() -> void:
-	on_card_click.emit(card_effect)
+	on_card_click.emit(self)
 	# UiHelper.disable(self)
 
 	pass # Replace with function body.
