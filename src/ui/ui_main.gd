@@ -32,7 +32,8 @@ func refresh_card_state(list) -> void:
 	print(list)
 	for i: CardEffect in list:
 		var ins: Card = card.instantiate() as Card
-		ins.text = i.resource_name
+		print(i.name)
+		ins.text = i.name
 		ins.card_effect = i
 		ins.on_card_click.connect(_on_card_click)
 		cardContainer.add_child(ins)
