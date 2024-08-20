@@ -64,6 +64,9 @@ func spawn_pendulum_on_container(index: int, dir: int) -> Pendulum:
 		new_pendulum.mass = current_pendulum.mass/2 + (randf() * random_range)
 	return new_pendulum
 
+func get_all_pendulum() -> Array[Pendulum]:
+	var total: Array[Pendulum] = left_pendulums + right_pendulums + [current_pendulum]
+	return total
 
 func generate_random_pendulum() -> Pendulum:
 	return pendulum_scene.pick_random().instantiate()
