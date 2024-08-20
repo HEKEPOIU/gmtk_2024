@@ -188,6 +188,15 @@ func remove_pendulum(pendulum: Pendulum) -> void:
 	collide.emit()
 	left_pendulums.erase(pendulum)
 	right_pendulums.erase(pendulum)
+	#
+	# for i in (pre_generate_size - left_pendulums.size()):
+	# 	var new_pendulum: Pendulum = spawn_pendulum_on_container(left_pendulums.size(), -1)
+	# 	left_pendulums.push_back(new_pendulum)
+	#
+	# for i in (pre_generate_size - right_pendulums.size()):
+	# 	var new_pendulum: Pendulum = spawn_pendulum_on_container(right_pendulums.size(), 1)
+	# 	right_pendulums.push_back(new_pendulum)
+	# start_offset_base_dir(0)
 
 func drop() -> void:
 	drop_card.emit()

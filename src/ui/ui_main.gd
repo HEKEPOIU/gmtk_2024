@@ -9,6 +9,7 @@ var card := preload("res://scene/card.tscn")
 
 @onready var startUi := get_node("StartUi")
 @onready var cardContainer := get_node("PanelContainer/HBoxContainer")
+@onready var end_picture: Panel = get_node("EndBG")
 @export var test_pendulum: Pendulum
 @export var next_card_effect: CardEffect
 @export var next_card: Card
@@ -87,3 +88,7 @@ func on_start_button_up() -> void:
 	print('game start')
 	game_start.emit()
 	pass # Replace with function body.
+
+
+func show_end() -> void:
+	end_picture.show()
