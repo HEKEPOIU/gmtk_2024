@@ -21,7 +21,7 @@ func _ready() -> void:
 	pendulum_manager.init_pendulums()
 
 	canvas.on_card_click.connect((func() -> void: canvas.show_border(pendulum_manager.get_all_pendulum(), Vector2(1, 1))))
-	canvas.game_start.connect(func() -> void:
+	on_start.connect(func() -> void:
 		print('print list')
 		canvas.refresh_card_state([add_speed_card.new(), inverse_speed_card.new(), double_speed_card.new()]))
 

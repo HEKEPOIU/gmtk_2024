@@ -12,23 +12,6 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_qae5q")
 
-[node name="StartUi" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -71.0
-offset_right = 476.0
-offset_bottom = 71.0
-grow_vertical = 2
-
-[node name="Start" type="Button" parent="StartUi"]
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "start"
-
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 12
@@ -43,5 +26,3 @@ grow_vertical = 0
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
-
-[connection signal="button_up" from="StartUi/Start" to="." method="on_start_button_up"]
