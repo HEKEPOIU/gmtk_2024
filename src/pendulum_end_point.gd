@@ -21,6 +21,10 @@ func _ready() -> void:
 	area_exited.connect(exit_area)
 
 
+func get_size() -> Vector2:
+	return sprite.get_rect().size * scale * sprite.scale
+
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("press") and is_mouse_inside:
 		is_click = true
@@ -42,6 +46,7 @@ func set_sprite(image: Texture2D) -> void:
 func enter_body(body: Area2D) -> void:
 	if body is PendulumEndPoint:
 		collider_other = body.get_parent() as Pendulum
+
 
 func exit_area(body: Area2D) -> void:
 	if body is PendulumEndPoint:
