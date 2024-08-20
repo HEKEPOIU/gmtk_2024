@@ -12,10 +12,9 @@ script = ExtResource("1_gy4id")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(965, 538)
 script = ExtResource("3_6fkyf")
-move_duration = 1.0
+move_duration = 0.5
 
 [node name="NinePatchRect" parent="." instance=ExtResource("5_o6d60")]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -30,9 +29,11 @@ patch_margin_right = 42
 patch_margin_bottom = 70
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Canvas" parent="CanvasLayer" node_paths=PackedStringArray("border") instance=ExtResource("3_6hq5n")]
 border = NodePath("../../NinePatchRect")
 
 [node name="PendulumManager" parent="." instance=ExtResource("5_a8atf")]
+move_time = 0.05
+margin_multiply = 2.5
+pre_generate_size = 4

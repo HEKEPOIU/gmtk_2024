@@ -4,7 +4,10 @@ class_name Pendulum
 # follow this video:
 # https://www.youtube.com/watch?v=J1ClXGZIh00
 signal start
+signal on_drag(pos: Vector2)
 signal be_current(pendulum: Pendulum)
+signal be_eat(pendulum: Pendulum)
+var can_contorl: bool = false
 var pivot_pos: Vector2
 var end_position: Vector2
 var angle: float
@@ -21,13 +24,14 @@ var length: float
 @export var end_point_move_multiplier: float = 5
 var damping: float:
 	get:
-		return remap(mass, min_mass, max_mass, 0.995, 0.99)
+		return clamp(remap(mass, min_mass, max_mass, 0.99, 0.995), 0.995, 0.99)
 @export var mass: float = 1
 @export var min_mass: float = 1
 @export var max_mass: float = 1000
 @export var is_current: bool = false
 @export var end_point_image: Texture2D
 @export var max_angular_velocity: float = 0.5
+@export var addition_velocity_when_collide: float = 3
 @export_dir var end_point_image_path: String
 @export_dir var chain_image_path: String
 
@@ -35,6 +39,7 @@ var end_point_images: Array[Texture2D]
 var chain_images: Array[Texture2D]
 var angular_velocity: float = 0.0
 var angular_acceleration: float = 0.0
+var cache_delta: float
 @onready var end_point: PendulumEndPoint = get_node("PendulumEndPoint")
 @onready var line: Line2D = get_node("Line2D")
 
@@ -57,7 +62,6 @@ func lazy_init_image() -> void:
 		for file_name in DirAccess.get_files_at(end_point_image_path):
 			file_name = file_name.replace('.import', '')
 			if file_name.get_extension() == "png":
-				file_name = file_name.replace('.import', '')
 				var texture: CompressedTexture2D = ResourceLoader.load(end_point_image_path + "/" + file_name)
 				end_point_images.push_back(texture)
 
@@ -71,6 +75,7 @@ func lazy_init_image() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_simulating:
 		return
+	cache_delta = delta
 	var pos_diff := global_position - prev_pos
 	prev_pos = global_position
 	update_position(delta, pos_diff)
@@ -114,7 +119,7 @@ func process_velocity(delta: float, _pivot_pos_diff: Vector2) -> void:
 
 
 func add_velocity(velocity: float) -> void:
-	angular_velocity += velocity
+	angular_velocity += velocity * cache_delta
 
 
 func set_mass(new_mass: float) -> void:
@@ -138,24 +143,29 @@ func deal_collide(other: Pendulum) -> void:
 			/ (mass + other.mass)
 			* percent
 		)
+		var dir: int = 1 if new_velocity > 0 else -1
 
-		other.add_velocity(new_velocity)
+		var addi : float = remap(percent, 1, 7, addition_velocity_when_collide, 0)
+
+		other.add_velocity(new_velocity + dir * addi)
 
 		other.set_mass(mass + other.mass)
+		if not other.is_current:
+			be_eat.emit(self)
 		queue_free()
 
 
 func be_drag() -> void:
-	if not is_current:
+	if not is_current or not can_contorl:
 		return
 	is_simulating = true
 	var dir_to_mouse := (get_global_mouse_position() - pivot_pos).normalized()
-	print(get_global_mouse_position())
 	var mouse_angle := -dir_to_mouse.angle_to(Vector2.DOWN)
+	on_drag.emit(get_global_mouse_position())
 	set_start_position(mouse_angle)
 
 
 func start_simulate() -> void:
-	if is_current:
+	if is_current and can_contorl:
 		set_end_point_position(length)
 		start.emit()
