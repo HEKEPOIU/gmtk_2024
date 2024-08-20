@@ -49,15 +49,15 @@ func _on_card_click(res: CardEffect) -> void:
 func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 	for p: Pendulum in arr:
 		var length: float = p.length
-		var sp := (p.get_node("PendulumEndPoint/Sprite2D") as Sprite2D)
-		var width: float = sp.texture.get_size().x * sp.scale.x
+		var h: float = p.length + p.end_point.get_size().y
+		var w: float = p.end_point.get_size().x
 		var new_border := borderPrefab.instantiate()
 		self.add_child(new_border)
 		new_border.on_choose.connect(func() -> void:
 			next_card_effect.on_trigger(p)
 			UiHelper.disable(new_border)
 			)
-		set_border(new_border, p.position - Vector2(width / 2, 0), Vector2(width, length)) # todo: use right width
+		set_border(new_border, p.global_position - Vector2(w / 2, 0), Vector2(w, h))
 	pass
 
 func set_border(border: ChooseBox, target_positon: Vector2, target_size: Vector2):
