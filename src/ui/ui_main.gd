@@ -12,8 +12,9 @@ var card := preload("res://scene/card.tscn")
 @export var test_pendulum: Pendulum
 @export var next_card_effect: CardEffect
 
-
+var all_border: Array[ChooseBox] = []
 signal game_start
+signal on_card_click
 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,26 +28,24 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func add_card(i: CardEffect) -> void:
+	var ins: Card = card.instantiate() as Card
+	print(i.name)
+	ins.text = i.name
+	ins.card_effect = i
+	ins.on_card_click.connect(_on_card_click)
+	cardContainer.add_child(ins)
 
 func refresh_card_state(list) -> void:
-	print(list)
 	for i: CardEffect in list:
-		var ins: Card = card.instantiate() as Card
-		print(i.name)
-		ins.text = i.name
-		ins.card_effect = i
-		ins.on_card_click.connect(_on_card_click)
-		cardContainer.add_child(ins)
+		add_card(i)
 
-	pass # Replace with function body.
-
-signal on_card_click
 
 func _on_card_click(res: CardEffect) -> void:
 	next_card_effect = res
 	on_card_click.emit()
 	pass
-var all_border: Array[ChooseBox] = []
+
 func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 	for p: Pendulum in arr:
 		var length: float = p.length

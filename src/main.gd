@@ -13,6 +13,8 @@ var is_start_swing: bool = false
 @export var add_speed_card: Resource = preload("res://src/ui/card/card_effect/add_speed_card.gd")
 @export var double_speed_card: Resource = preload("res://src/ui/card/card_effect/double_speed_card.gd")
 
+var rng = RandomNumberGenerator.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pendulum_manager.on_change_pendulum.connect(camera.deal_follow)
@@ -24,6 +26,17 @@ func _ready() -> void:
 	on_start.connect(func() -> void:
 		print('print list')
 		canvas.refresh_card_state([add_speed_card.new(), inverse_speed_card.new(), double_speed_card.new()]))
+
+	pendulum_manager.drop_card.connect(func() -> void:
+		var my_random_number = int(rng.randf_range(0, 10.0)) % 3
+		if my_random_number == 0:
+			canvas.add_card(add_speed_card.new())
+		elif my_random_number == 1:
+			canvas.add_card(double_speed_card.new())
+		else:
+			canvas.add_card(inverse_speed_card.new())
+
+	)
 
 func start_game() -> void:
 	if is_start_swing:
