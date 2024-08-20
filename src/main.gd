@@ -2,6 +2,7 @@ extends Node
 
 class_name GameManarger
 
+signal on_start
 @onready var canvas := get_node("CanvasLayer/Canvas") as UiMain
 @onready var camera: CameraManager = get_node("Camera2D")
 @onready var pendulum_manager: PendulumManager = get_node("PendulumManager")
@@ -17,4 +18,7 @@ func _ready() -> void:
 	pendulum_manager.init_pendulums()
 
 func start_game() -> void:
+	if is_start_swing:
+		return
 	is_start_swing = true
+	on_start.emit()

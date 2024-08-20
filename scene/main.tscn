@@ -28,6 +28,7 @@ texture = ExtResource("3_nkxm2")
 [node name="PendulumManager" parent="." instance=ExtResource("5_a8atf")]
 move_time = 0.05
 margin_multiply = 2.5
+random_range = 50.0
 pre_generate_size = 4
 
 [node name="AudioManager" parent="." instance=ExtResource("6_mghdt")]
