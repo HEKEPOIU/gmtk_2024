@@ -46,6 +46,7 @@ func _on_card_click(res: CardEffect) -> void:
 	next_card_effect = res
 	on_card_click.emit()
 	pass
+var all_border: Array[ChooseBox] = []
 func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 	for p: Pendulum in arr:
 		var length: float = p.length
@@ -56,8 +57,13 @@ func show_border(arr: Array[Pendulum], border_size: Vector2) -> void:
 		new_border.on_choose.connect(func() -> void:
 			next_card_effect.on_trigger(p)
 			UiHelper.disable(new_border)
+			for b in all_border:
+				UiHelper.disable(b)
+			all_border.clear()
 			)
 		set_border(new_border, p.global_position - Vector2(w / 2, 0), Vector2(w, h))
+		all_border.append(new_border)
+
 	pass
 
 func set_border(border: ChooseBox, target_positon: Vector2, target_size: Vector2):
