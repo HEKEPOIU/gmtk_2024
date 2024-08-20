@@ -23,18 +23,13 @@ current = true
 texture = ExtResource("3_nkxm2")
 
 [node name="NinePatchRect" parent="." instance=ExtResource("5_o6d60")]
-anchors_preset = 5
+anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -74.0
+offset_left = -82.0
 offset_top = 291.0
-offset_right = -34.0
+offset_right = -42.0
 offset_bottom = 331.0
-grow_horizontal = 2
-patch_margin_left = 54
-patch_margin_top = 49
-patch_margin_right = 42
-patch_margin_bottom = 70
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -43,6 +38,7 @@ patch_margin_bottom = 70
 [node name="PendulumManager" parent="." instance=ExtResource("5_a8atf")]
 move_time = 0.05
 margin_multiply = 2.5
+random_range = 50.0
 pre_generate_size = 4
 
 [node name="AudioManager" parent="." instance=ExtResource("6_mghdt")]
