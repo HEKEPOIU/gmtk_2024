@@ -50,3 +50,4 @@ func start_game() -> void:
 
 func end_geme() -> void:
 	on_end.emit()
+	canvas.show_end()

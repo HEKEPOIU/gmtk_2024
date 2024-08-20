@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://mi0q0rdifude" path="res://scene/main_ui.tscn" id="3_6hq5n"]
 [ext_resource type="Texture2D" uid="uid://cbmws62tgyejb" path="res://assets/background/Background_for_the_game.png" id="3_nkxm2"]
 [ext_resource type="PackedScene" uid="uid://prj2jrlt2fu1" path="res://scene/pendulum_manager.tscn" id="5_a8atf"]
-[ext_resource type="PackedScene" path="res://scene/audio_manager.tscn" id="6_mghdt"]
+[ext_resource type="PackedScene" uid="uid://bmuvhe7rycxhr" path="res://scene/audio_manager.tscn" id="6_mghdt"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_gy4id")

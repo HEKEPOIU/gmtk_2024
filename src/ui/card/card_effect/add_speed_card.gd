@@ -1,5 +1,5 @@
 extends CardEffect
-@export var times := 10
+@export var times := 5
 
 func _init():
 	name = 'add speed'

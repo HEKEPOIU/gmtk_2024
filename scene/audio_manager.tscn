@@ -21,6 +21,7 @@ max_distance = 9.22337e+18
 max_polyphony = 10
 
 [node name="CardEffect" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-8, 0)
 stream = ExtResource("4_7161v")
 volume_db = 2.173
 max_distance = 9.22337e+18
